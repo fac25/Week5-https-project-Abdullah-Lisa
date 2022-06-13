@@ -1,5 +1,5 @@
-const apiKey = 24c5b19a49cfefbc4da219de97474cb3
-
+const movieApi = 24c5b19a49cfefbc4da219de97474cb3
+const giphyApi = rGUKmT78evm9GztNgAdrUuRuYUOJ2ZXO
 
 // Example API Request
 // https://api.themoviedb.org/3/movie/550?api_key=24c5b19a49cfefbc4da219de97474cb3
