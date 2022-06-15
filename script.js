@@ -12,17 +12,27 @@ const moviesList = document.querySelector(".movies-list");
 
 
 
-const createMovies = (movies) => {
-    movies.results.forEach(result => {
+const createMovies = (data) => {
+    data[2].results.forEach(result => {
         let movieItem = document.createElement("li");
         let title = document.createElement("h3");
         title.textContent = result.title;
         let img = document.createElement("img");
-        img.setAttribute("src", `https://image.tmdb.org/t/p/w500${result.poster_path}`);
+        img.setAttribute("src", `${data[0].images.secure_base_url}w500${result.poster_path}`);
         img.setAttribute("alt", `${result.title} poster`);
-        let overview = document.createElement("p");
-        overview.textContent = result.overview;
-        movieItem.append(title, img, overview);
+        let genresList = document.createElement("ul");
+        let genres = [];
+        for (let i = 0; i < result.genre_ids.length; i++) {
+            data[1].genres.forEach(el => {
+                if (el.id === result.genre_ids[[i]]) {
+                    genres.push(el);
+                }
+            })
+        } 
+        let genresItems = '';
+        genres.forEach(el => genresItems += `<li>${el.name}</li>`);
+        genresList.innerHTML = genresItems;
+        movieItem.append(title, img, genresList);
         moviesList.append(movieItem);
     });
 }
@@ -42,6 +52,8 @@ const fetchRequest = (url) => {
 
 
 
-fetchRequest(`https://api.themoviedb.org/3/movie/popular?api_key=${movieApi}&language=en-US&page=1`)
-    .then()
+
+
+Promise.all([fetchRequest(configUrl), fetchRequest(genresUrl), fetchRequest(randomMoviesUrl)])
+    .then(res => createMovies(res))
     .catch(error => console.log(error))
