@@ -1,1 +1,37 @@
+:root {
+    --primary-color:  #210826;
+    /* --secondary-color:  #676715; */
+    --light-yellow: #fcf594;
 
+}
+body {
+    background-color: var(--primary-color);
+    color:var(--light-yellow);
+    font-family: 'Montserrat', sans-serif;
+}
+h1 {
+    text-align: center;
+}
+
+.movie-search {
+    display:flex;
+    justify-content: center;
+    margin:4rem;
+}
+
+label {
+    font-size: 1.3rem;
+    margin-right:2rem;
+}
+
+input {
+    background-color:var(--primary-color);
+    color:var(--light-yellow);
+}
+
+button {
+    cursor: pointer;
+}
+.search-img {
+max-width: 2rem;
+}
