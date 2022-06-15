@@ -4,9 +4,24 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <title>Movie Finder</title>
 </head>
 <body>
-  
+  <header>
+    <h1>Movie Finder</h1>
+    <form class="movie-search">
+      <label for="movie-name">Enter a movie name</label>
+      <input type="search" id="movie-name">
+      <button type="submit">search</button>
+    </form>
+  </header>
+  <main>
+    <section class="movies">
+      <ul class="list movies-list">
+      </ul>
+    </section>
+  </main>
+  <script src="script.js"></script>
 </body>
 </html>

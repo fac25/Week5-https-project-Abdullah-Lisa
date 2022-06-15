@@ -12,7 +12,6 @@ const moviesList = document.querySelector(".movies-list");
 
 
 
-
 const createMovies = (movies) => {
     movies.results.forEach(result => {
         let movieItem = document.createElement("li");
