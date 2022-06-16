@@ -5,7 +5,6 @@ const movieURL = "https://api.themoviedb.org/3";
 const searchURL = movieURL + "/search/movie?"+ movieApi;
 
 const form = document.querySelector("form");
-const search = document.getElementById("movie-name").value;
 
 //example API request searching for dune
 //https://api.themoviedb.org/3/search/movie?api_key=24c5b19a49cfefbc4da219de97474cb3&query=dune
@@ -54,8 +53,8 @@ const fetchRequest = (url) => {
 // search movies
 form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const formData = new FormData(form);
-    const movie = formData.get("movie-name");
+    const search = document.getElementById("movie-name").value;
 
-    console.log(fetchRequest(searchURL + "&query=" + movie))
+    fetchRequest(searchURL + "&query=" + search)
+    .then((response) => console.log(response))
 });
