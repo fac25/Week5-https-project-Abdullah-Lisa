@@ -4,6 +4,13 @@
     --light-yellow: #fcf594;
 
 }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     background-color: var(--primary-color);
     color:var(--light-yellow);
@@ -11,6 +18,10 @@ body {
 }
 h1 {
     text-align: center;
+}
+
+ul {
+    list-style: none;
 }
 
 .movie-search {
@@ -32,6 +43,66 @@ input {
 button {
     cursor: pointer;
 }
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.container {
+    width: 95%;
+    padding: 0 15px;
+    margin: 0 auto;
+}
+
 .search-img {
 max-width: 2rem;
+}
+
+
+.movies-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+
+/* Media querires*/
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+
+}
+
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+
+}
+
+@media (min-width: 992px) {
+
+
+    .container {
+        max-width: 960px;
+    }
+
+}
+
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1320px;
+    }
+
 }
