@@ -1,6 +1,9 @@
-const movieApi = "24c5b19a49cfefbc4da219de97474cb3"
-const giphyApi = "rGUKmT78evm9GztNgAdrUuRuYUOJ2ZXO"
-
+const movieApi = "24c5b19a49cfefbc4da219de97474cb3";
+const giphyApi = "rGUKmT78evm9GztNgAdrUuRuYUOJ2ZXO";
+const randomMoviesUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${movieApi}&language=en-US&page=1`;
+const configUrl = `https://api.themoviedb.org/3/configuration?api_key=${movieApi}`;
+const genresUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${movieApi}`;
+const moviesList = document.querySelector(".movies-list");
 // Example API Request
 // https://api.themoviedb.org/3/movie/550?api_key=24c5b19a49cfefbc4da219de97474cb3
 
@@ -9,3 +12,48 @@ const giphyApi = "rGUKmT78evm9GztNgAdrUuRuYUOJ2ZXO"
 
 
 
+const createMovies = (data) => {
+    data[2].results.forEach(result => {
+        let movieItem = document.createElement("li");
+        let title = document.createElement("h3");
+        title.textContent = result.title;
+        let img = document.createElement("img");
+        img.setAttribute("src", `${data[0].images.secure_base_url}w500${result.poster_path}`);
+        img.setAttribute("alt", `${result.title} poster`);
+        let genresList = document.createElement("ul");
+        let genres = [];
+        for (let i = 0; i < result.genre_ids.length; i++) {
+            data[1].genres.forEach(el => {
+                if (el.id === result.genre_ids[[i]]) {
+                    genres.push(el);
+                }
+            })
+        } 
+        let genresItems = '';
+        genres.forEach(el => genresItems += `<li>${el.name}</li>`);
+        genresList.innerHTML = genresItems;
+        movieItem.append(title, img, genresList);
+        moviesList.append(movieItem);
+    });
+}
+
+
+const fetchRequest = (url) => {
+    return fetch(url)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Something went wrong with request code: ' + response.status);
+            })
+}
+
+
+
+
+
+
+
+Promise.all([fetchRequest(configUrl), fetchRequest(genresUrl), fetchRequest(randomMoviesUrl)])
+    .then(res => createMovies(res))
+    .catch(error => console.log(error))
