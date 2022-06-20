@@ -3,16 +3,21 @@ const giphyApi = "rGUKmT78evm9GztNgAdrUuRuYUOJ2ZXO";
 const randomMoviesUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${movieApi}&language=en-US&page=1`;
 const configUrl = `https://api.themoviedb.org/3/configuration?api_key=${movieApi}`;
 const genresUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${movieApi}`;
+// const getMovie = `https://api.themoviedb.org/3/movie/{movie_id}?api_key=${movieApi}&language=en-US`
 const moviesList = document.querySelector(".movies-list");
-// Example API Request
-// https://api.themoviedb.org/3/movie/550?api_key=24c5b19a49cfefbc4da219de97474cb3
 
-// API Read Access Token (v4 auth)
-//eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyNGM1YjE5YTQ5Y2ZlZmJjNGRhMjE5ZGU5NzQ3NGNiMyIsInN1YiI6IjYyYTc3NWZkM2UyZWM4MDA5YmMwN2RjNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.x4D22BLP3HHo2U9wp-1Q8imZQh--rXCf_2X2oV30jfo
+const handleGetMovie = (e, id) => {
+    e.preventDefault();
+    getMovie(id);
+}
 
-
+const getMovie = (id) => {
+    return fetchRequest(`https://api.themoviedb.org/3/movie/${id}?api_key=${movieApi}&language=en-US`)
+        .then(details => console.log(details))
+}
 
 const createMovies = (data) => {
+    console.log(data);
     data[2].results.forEach(result => {
         let movieItem = document.createElement("li");
         let genres = [];
@@ -26,7 +31,7 @@ const createMovies = (data) => {
         let genresString = '';
         genres.forEach(el => genresString += `<li>${el.name}</li>`);
         let itemContent = `
-            <a href="#" aria-id="id" class="vertical-gutter">
+            <a href="#" data-id="${result.id}" class="vertical-gutter movie-link">
                 <div class="overlay" aria-hidden="true"></div>
                 <h3>${result.title}</h3>
                 <img src="${data[0].images.secure_base_url}w500${result.poster_path}" alt="${result.title} poster"/>
@@ -35,26 +40,11 @@ const createMovies = (data) => {
                 </ul>
             </a>
         `;
-        // let title = document.createElement("h3");
-        // title.textContent = result.title;
-        // let img = document.createElement("img");
-        // img.setAttribute("src", `${data[0].images.secure_base_url}w500${result.poster_path}`);
-        // img.setAttribute("alt", `${result.title} poster`);
-        // let genresList = document.createElement("ul");
-        // let genres = [];
-        // for (let i = 0; i < result.genre_ids.length; i++) {
-        //     data[1].genres.forEach(el => {
-        //         if (el.id === result.genre_ids[[i]]) {
-        //             genres.push(el);
-        //         }
-        //     })
-        // } 
-        // let genresItems = '';
-        // genres.forEach(el => genresItems += `<li>${el.name}</li>`);
-        // genresList.innerHTML = genresItems;
         movieItem.innerHTML = itemContent;
         moviesList.append(movieItem);
     });
+    const movieLinks = document.querySelectorAll(".movie-link");
+        movieLinks.forEach(movie => movie.addEventListener("click", (e) => handleGetMovie(e, movie.dataset.id)))
 }
 
 
@@ -67,7 +57,6 @@ const fetchRequest = (url) => {
                 throw new Error('Something went wrong with request code: ' + response.status);
             })
 }
-
 
 
 
