@@ -4,6 +4,9 @@ const randomMoviesUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${mo
 const configUrl = `https://api.themoviedb.org/3/configuration?api_key=${movieApi}`;
 const genresUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${movieApi}`;
 const moviesList = document.querySelector(".movies-list");
+const movieURL = "https://api.themoviedb.org/3";
+const searchURL = movieURL + "/search/movie?"+ "api_key=" + movieApi;
+const form = document.querySelector("form");
 // Example API Request
 // https://api.themoviedb.org/3/movie/550?api_key=24c5b19a49cfefbc4da219de97474cb3
 
@@ -57,3 +60,14 @@ const fetchRequest = (url) => {
 Promise.all([fetchRequest(configUrl), fetchRequest(genresUrl), fetchRequest(randomMoviesUrl)])
     .then(res => createMovies(res))
     .catch(error => console.log(error))
+
+
+
+    // search movies
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const search = document.getElementById("movie-name").value;
+
+    fetchRequest(searchURL + "&query=" + search)
+    .then((response) => console.log(response))
+});
