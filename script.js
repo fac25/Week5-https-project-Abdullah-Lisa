@@ -15,12 +15,6 @@ const moviesList = document.querySelector(".movies-list");
 const createMovies = (data) => {
     data[2].results.forEach(result => {
         let movieItem = document.createElement("li");
-        let title = document.createElement("h3");
-        title.textContent = result.title;
-        let img = document.createElement("img");
-        img.setAttribute("src", `${data[0].images.secure_base_url}w500${result.poster_path}`);
-        img.setAttribute("alt", `${result.title} poster`);
-        let genresList = document.createElement("ul");
         let genres = [];
         for (let i = 0; i < result.genre_ids.length; i++) {
             data[1].genres.forEach(el => {
@@ -29,10 +23,36 @@ const createMovies = (data) => {
                 }
             })
         } 
-        let genresItems = '';
-        genres.forEach(el => genresItems += `<li>${el.name}</li>`);
-        genresList.innerHTML = genresItems;
-        movieItem.append(title, img, genresList);
+        let genresString = '';
+        genres.forEach(el => genresString += `<li>${el.name}</li>`);
+        let itemContent = `
+            <a href="#" aria-id="id" class="vertical-gutter">
+                <div class="overlay" aria-hidden="true"></div>
+                <h3>${result.title}</h3>
+                <img src="${data[0].images.secure_base_url}w500${result.poster_path}" alt="${result.title} poster"/>
+                <ul class="genres-list">
+                    ${genresString}
+                </ul>
+            </a>
+        `;
+        // let title = document.createElement("h3");
+        // title.textContent = result.title;
+        // let img = document.createElement("img");
+        // img.setAttribute("src", `${data[0].images.secure_base_url}w500${result.poster_path}`);
+        // img.setAttribute("alt", `${result.title} poster`);
+        // let genresList = document.createElement("ul");
+        // let genres = [];
+        // for (let i = 0; i < result.genre_ids.length; i++) {
+        //     data[1].genres.forEach(el => {
+        //         if (el.id === result.genre_ids[[i]]) {
+        //             genres.push(el);
+        //         }
+        //     })
+        // } 
+        // let genresItems = '';
+        // genres.forEach(el => genresItems += `<li>${el.name}</li>`);
+        // genresList.innerHTML = genresItems;
+        movieItem.innerHTML = itemContent;
         moviesList.append(movieItem);
     });
 }
