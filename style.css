@@ -4,6 +4,13 @@
     --light-yellow: #fcf594;
 
 }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     background-color: var(--primary-color);
     color:var(--light-yellow);
@@ -11,6 +18,10 @@ body {
 }
 h1 {
     text-align: center;
+}
+
+ul {
+    list-style: none;
 }
 
 .movie-search {
@@ -32,6 +43,124 @@ input {
 button {
     cursor: pointer;
 }
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.container {
+    width: 95%;
+    padding: 0 15px;
+    margin: 0 auto;
+}
+
+.vertical-gutter > * + * {
+    margin-top: 15px;
+}
+
 .search-img {
 max-width: 2rem;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .4);
+}
+
+
+.movies-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+
+.movies-list a {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: #fff;
+    position: relative;
+}
+
+.movies-list img {
+    order: -1;
+    margin-top: 0;
+}
+
+.movies-list h3 {
+    position: absolute;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, .7);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.genres-list {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.genres-list li {
+    font-size: 14px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px;
+    text-transform: uppercase;
+}
+
+
+/* Media querires*/
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+
+}
+
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+
+}
+
+@media (min-width: 992px) {
+
+
+    .container {
+        max-width: 960px;
+    }
+
+}
+
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1320px;
+    }
+
 }
