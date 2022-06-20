@@ -9,7 +9,9 @@ This is a Founders And Coders [project](https://github.com/fac25/Week5-https-pro
 The current goals for this project are:
 
 - [ ] The user can search for a specific movie.
-- [ ] The landing page shows default results when the page is loaded.
+  - search needs styling
+  - search needs to show correct genres
+- [x] The landing page shows default results when the page is loaded.
 - [ ] Notify the user when the search result is not found.
 - [ ] Notify the user if the data wasn't available.
 - [ ] Make the page responsive.
