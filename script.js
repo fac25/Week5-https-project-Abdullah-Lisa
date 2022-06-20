@@ -26,10 +26,11 @@ const createMovies = (data) => {
         let genresString = '';
         genres.forEach(el => genresString += `<li>${el.name}</li>`);
         let itemContent = `
-            <a href="#" aria-id="id">
+            <a href="#" aria-id="id" class="vertical-gutter">
+                <div class="overlay" aria-hidden="true"></div>
                 <h3>${result.title}</h3>
                 <img src="${data[0].images.secure_base_url}w500${result.poster_path}" alt="${result.title} poster"/>
-                <ul>
+                <ul class="genres-list">
                     ${genresString}
                 </ul>
             </a>

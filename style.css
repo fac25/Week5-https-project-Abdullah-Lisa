@@ -56,8 +56,21 @@ img {
     margin: 0 auto;
 }
 
+.vertical-gutter > * + * {
+    margin-top: 15px;
+}
+
 .search-img {
 max-width: 2rem;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .4);
 }
 
 
@@ -65,6 +78,51 @@ max-width: 2rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1rem;
+}
+
+
+.movies-list a {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: #fff;
+    position: relative;
+}
+
+.movies-list img {
+    order: -1;
+    margin-top: 0;
+}
+
+.movies-list h3 {
+    position: absolute;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, .7);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.genres-list {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.genres-list li {
+    font-size: 14px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px;
+    text-transform: uppercase;
 }
 
 
