@@ -7,6 +7,7 @@ const moviesList = document.querySelector(".movies-list");
 const movieURL = "https://api.themoviedb.org/3";
 const searchURL = movieURL + "/search/movie?"+ "api_key=" + movieApi;
 const form = document.querySelector("form");
+const output = document.querySelector("output");
 // Example API Request
 // https://api.themoviedb.org/3/movie/550?api_key=24c5b19a49cfefbc4da219de97474cb3
 
@@ -58,7 +59,9 @@ const fetchRequest = (url) => {
 
 
 Promise.all([fetchRequest(configUrl), fetchRequest(genresUrl), fetchRequest(randomMoviesUrl)])
-    .then(res => createMovies(res))
+    .then(res => {
+        createMovies(res)
+        console.log(res)})
     .catch(error => console.log(error))
 
 
@@ -69,5 +72,28 @@ form.addEventListener("submit", (e) => {
     const search = document.getElementById("movie-name").value;
 
     fetchRequest(searchURL + "&query=" + search)
-    .then((response) => console.log(response))
+    .then((response) => {
+        showMovie(response)
+        console.log(response)})
+
+        //hide random movies when searching
+        document.querySelector("section").style.display = "none";
+
+    //show searched movies
+    const showMovie = (response) => {
+        // response.results.forEach(result =>{ 
+            for (i=0; i < response.results.length; i++) {
+        let title = document.createElement("h2");
+            title.textContent = response.results[i].original_title;
+        let img = document.createElement("img");
+        // img.setAttribute("src", `${data[0].images.secure_base_url}w500${result.poster_path}`);
+        // img.setAttribute("alt", `${result.title} poster`);
+        img.src = response.results[i].poster_path;
+        img.alt="";
+        let overview = document.createElement("p");
+        overview.textContent = response.results[i].overview;
+        output.append(title, img, overview)
+    }}
 });
+
+
