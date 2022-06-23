@@ -5,7 +5,7 @@ const giphyApi = "rGUKmT78evm9GztNgAdrUuRuYUOJ2ZXO";
 const randomMoviesUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${movieApi}&language=en-US`;
 const configUrl = `https://api.themoviedb.org/3/configuration?api_key=${movieApi}`;
 const genresUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${movieApi}`;
-const moviesByGenre = `http://api.themoviedb.org/3/discover/movie?api_key=${movieApi}`;
+const moviesByGenre = `https://api.themoviedb.org/3/discover/movie?api_key=${movieApi}`;
 const movieURL = "https://api.themoviedb.org/3";
 const searchURL = movieURL + "/search/movie?"+ "api_key=" + movieApi;
 // Giphy endpiont
