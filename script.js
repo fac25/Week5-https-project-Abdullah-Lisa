@@ -108,10 +108,7 @@ const createMovies = (data) => {
             items += itemContent;
         });
         moviesList.innerHTML = items;
-        movieSection.classList.add("hidden");
-        errorSection.classList.add("hidden");
-        randomSection.classList.remove("hidden");
-        randomSection.classList.add("show");
+        showSection(randomSection);
         const movieLinks = document.querySelectorAll(".movie-link");
         movieLinks.forEach(movie => movie.addEventListener("click", (e) => handleGetMovie(e, movie.dataset.id)));
     }
@@ -185,9 +182,12 @@ const handleError = (error, message) => {
     console.log(error);
     errorMessage.textContent = message;
     createBackButton(errorMessage, "beforeend");
-    movieSection.classList.add("hidden");
-    randomSection.classList.add("hidden");
-    errorSection.classList.remove("hidden");
-    errorSection.classList.add("show");
+    showSection(errorSection);
+}
+
+const showSection = (section) => {
+    document.querySelectorAll("section").forEach(sec => sec.classList.add("hidden"));
+    section.classList.remove("hidden");
+    section.classList.add("show");
 }
 
