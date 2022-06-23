@@ -3,6 +3,7 @@ const giphyApi = "rGUKmT78evm9GztNgAdrUuRuYUOJ2ZXO";
 const randomMoviesUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${movieApi}&language=en-US`;
 const configUrl = `https://api.themoviedb.org/3/configuration?api_key=${movieApi}`;
 const genresUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${movieApi}`;
+const moviesByGenre = `http://api.themoviedb.org/3/discover/movie?api_key=${movieApi}`;
 const giphyUrl = `https://api.giphy.com/v1/gifs/search`;
 const logo = document.querySelector(".logo");
 const randomSection = document.querySelector(".movies");
@@ -34,7 +35,7 @@ const createMovie = (results) => {
     let details = results[0];
     let config = results[1];
     let genresString = ``;
-    details.genres.forEach(genre => genresString += `<li>${genre.name}</li>`);
+    details.genres.forEach(genre => genresString += `<li><a href="#" data-id=${genre.id}>${genre.name}</a></li>`);
             randomSection.classList.add("hidden");
             let imgSrc = details.poster_path ? `${config.images.secure_base_url}w500${details.poster_path}` : "./images/placeholder.jpeg";
             let content = `
@@ -60,6 +61,7 @@ const createMovie = (results) => {
                 `
                 movieSection.innerHTML = content;
                 createBackButton(movieSection.querySelector(".container"), "afterbegin");
+                addGenreLinks(movieSection);
                 movieSection.classList.remove("hidden");
                 movieSection.classList.add("show");
                 fetchRequest(`${giphyUrl}?q=${details.title}&api_key=${giphyApi}&limit=1&rating=g`)
@@ -116,11 +118,23 @@ const createMovies = (data) => {
     
 }
 
-const createMoviesList = (url) => {
-    return Promise.all([fetchRequest(configUrl), fetchRequest(genresUrl), fetchRequest(url)])
-    .then(res => createMovies(res))
+const getMoviesByGenre = (e, el) => {
+    e.preventDefault();
+    let id = el.dataset.id;
+    createMoviesList(moviesByGenre + `&with_genres=${id}`)
+        .then(title => title.textContent = `${el.textContent} Movies`)
+        .catch(error => handleError(error, "Sorry, something went wrong. Please try to refresh the page or visit us later"));
 }
 
+const createMoviesList = (url) => {
+    return Promise.all([fetchRequest(configUrl), fetchRequest(genresUrl), fetchRequest(url)])
+    .then(res => {console.log(res); return createMovies(res)})
+}
+
+
+const addGenreLinks = (section) => {
+    section.querySelectorAll("[data-id]").forEach(link => link.addEventListener("click", (e) => getMoviesByGenre(e, link)))
+}
 
 const fetchRequest = (url) => {
     return fetch(url)
